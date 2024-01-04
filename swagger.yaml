@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: API to-do list
+  description: API para gerenciamento de to-do list
+  version: 1.0.0
+paths:
+  /tasks:
+    get:
+      summary: Get tasks
+      responses:
+        200:
+          description: Sucess
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks_Two'
+    post:
+      summary: Create a task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean  
+                created_at:
+                  type: string
+                  format: date-time
+                updated_at:
+                  type: string
+                  format: date-time
+                end_date:
+                  type: string
+                  format: date-time
+                status:
+                  type: string
+                priority:
+                  type: string
+                owner:
+                  type: string
+      responses:
+        201:
+          description: "Task successfully created"
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Tasks_One'
+  /tasks/{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: integer
+      required: true  
+    get:
+      summary: Get specific task
+      responses:
+        200:
+          description: Sucess
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Tasks_One'
+        404:
+          description: "Not Found!"
+    put:
+      summary: Edit a task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean  
+                created_at:
+                  type: string
+                  format: date-time
+                updated_at:
+                  type: string
+                  format: date-time
+                end_date:
+                  type: string
+                  format: date-time
+                status:
+                  type: string
+                priority:
+                  type: string
+                owner:
+                  type: string
+      responses:
+        200:
+          description: "Task successfully updated!"
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Tasks_One'
+        404:
+          description: "Not Found!"      
+    delete:
+      summary: Delete a task
+      responses:
+        200:
+          description: "Task successfully deleted!"
+          content:
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Tasks_One'
+        404:
+          description: "Not Found!"
+servers:
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ROSCU/APITo-doList/1.0.0
+  - description: Testing API
+    url: https://65930fa2bb129707199056bc.mockapi.io/api/v1
+components:
+  schemas:
+    Tasks_One:
+      type: object
+      properties:
+        sucess:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            title:
+              type: string
+            description:
+              type: string
+            active:
+              type: boolean  
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            end_date:
+              type: string
+              format: date-time
+            status:
+              type: string
+            priority:
+              type: string
+            owner:
+              type: string
+    Tasks_Two:
+      type: object
+      properties:
+        sucess:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Tasks'
+    Tasks:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string  
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        status:
+          type: string
+        priority:
+          type: string
+        owner:
+          type: string
