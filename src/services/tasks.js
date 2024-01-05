@@ -72,6 +72,7 @@ class TaskServices {
         task[key] = fields[key];
       }
     });
+    task.updatedAt = moment().format('YYYY-MM-DD HH:mm:SS');
 
     return task.save();
   }
@@ -84,6 +85,7 @@ class TaskServices {
     }
 
     task.active = false;
+    task.updatedAt = moment().format('YYYY-MM-DD HH:mm:SS');
 
     return task.save();
   }
